@@ -139,7 +139,7 @@ fun BillForm(modifier: Modifier = Modifier,onValChange :(String) -> Unit ={}){
                     horizontalArrangement = Arrangement.End) {
                         RoundedIconButton(imageVector = Icons.Default.Remove,
                             onClick = { /*TODO*/ })
-                        Text(text = "1")
+                        Text(text = "1", modifier = Modifier.align(alignment = Alignment.CenterVertically).padding(start = 9.dp, end = 9.dp))
                         RoundedIconButton(imageVector = Icons.Default.Add,
                             onClick = { /*TODO*/ })
                     }
