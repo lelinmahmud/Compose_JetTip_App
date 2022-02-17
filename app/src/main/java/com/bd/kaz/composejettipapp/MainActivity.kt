@@ -3,6 +3,7 @@ package com.bd.kaz.composejettipapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,11 +33,32 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     color = Color.White
                 ) {
-                   TopHeader()
+                   Column {
+                       TopHeader()
+                       MainContent()
+                   }
                 }
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun MainContent(){
+   Surface(
+       modifier = Modifier
+           .fillMaxWidth()
+           .padding(5.dp)
+           .height(200.dp),
+       shape = RoundedCornerShape(corner = CornerSize(8.dp)),
+       border = BorderStroke(width = 1.dp, color = Color.LightGray),
+       color = Color.White,
+       elevation = 2.dp
+   ) {
+
+   }
 }
 
 @Preview(showBackground = false)
