@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
@@ -22,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -97,13 +95,16 @@ fun BillForm(modifier: Modifier = Modifier,onValChange :(String) -> Unit ={}){
         totalBillState.value.trim().isNotEmpty()
     }
 
+    val sliderPositionState = remember {
+        mutableStateOf(0f)
+    }
+
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
-            .height(200.dp),
+            .padding(5.dp),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 1.dp, color = Color.LightGray),
         elevation = 2.dp
@@ -122,7 +123,7 @@ fun BillForm(modifier: Modifier = Modifier,onValChange :(String) -> Unit ={}){
                     keyboardController?.hide()
                 }
             )
-            if (validState){
+//            if (validState){
                 Row(
                     modifier = Modifier.padding(3.dp),
                     horizontalArrangement = Arrangement.Start,
@@ -139,17 +140,37 @@ fun BillForm(modifier: Modifier = Modifier,onValChange :(String) -> Unit ={}){
                     horizontalArrangement = Arrangement.End) {
                         RoundedIconButton(imageVector = Icons.Default.Remove,
                             onClick = { /*TODO*/ })
-                        Text(text = "1", modifier = Modifier.align(alignment = Alignment.CenterVertically).padding(start = 9.dp, end = 9.dp))
+                        Text(text = "1", modifier = Modifier
+                            .align(alignment = Alignment.CenterVertically)
+                            .padding(start = 9.dp, end = 9.dp))
                         RoundedIconButton(imageVector = Icons.Default.Add,
                             onClick = { /*TODO*/ })
                     }
                 }
+
+            Row(modifier = Modifier
+                .padding(horizontal = 3.dp, vertical = 12.dp)
+                .align(alignment = Alignment.Start)) {
+                Text(text = "Tip", modifier = Modifier.align(alignment = Alignment.CenterVertically))
+                Spacer(modifier = Modifier.width(200.dp))
+                Text(text = "$33", modifier = Modifier.align(alignment = Alignment.CenterVertically))
             }
-            else{
-                Box() {
-                    
-                }
+            
+            Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center) {
+                Text(text = "%33")
+                Spacer(modifier = Modifier.height(14.dp))
+                Slider(value = sliderPositionState.value, onValueChange = { newVal ->
+                    sliderPositionState.value = newVal
+                    Log.e("Slider", "Slider Value: $newVal", )
+                })
             }
+//            }
+//            else{
+//                Box() {
+//
+//                }
+//            }
         }
     }
 }
